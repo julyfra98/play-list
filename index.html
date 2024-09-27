@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejor Playlist</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin: 10px;
+        }
+        .card img {
+            height: 150px;
+            width: 150px;
+        }
+
+		#reproduciendo {
+			padding-top: 40px;
+
+
+		}
+
+        #reproduciendo img {
+            width: 70%;
+            height: 250px;
+			display: flex;
+			justify-content: center;
+        }
+
+		#reproduciendo video {
+			width: 100%;
+            height: auto;
+		}
+
+		.track-info {
+			width: 100%;
+			overflow: hidden; /* Esconde el texto que se sale del contenedor */
+			background: #f1f1f1;
+			padding: 5px;
+			margin-top: 5px;
+			box-sizing: border-box;
+}
+
+			.marquee {
+					display: inline-block;
+					white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+					animation: scroll-text 10s linear infinite; /* Aplica la animación de desplazamiento */
+			}
+
+			@keyframes scroll-text {
+				0% {
+					transform: translateX(100%); /* Empieza fuera del contenedor a la derecha */
+				}
+				100% {
+					transform: translateX(-100%); /* Termina fuera del contenedor a la izquierda */
+				}
+			}
+
+			audio {
+				width: 100%; /* Cambia el ancho del control de audio */
+				max-width: 600px; /* Ancho máximo para el control */
+			}
+
+			.card-img-top {
+				width: 60%;
+				height: 250px;
+				margin-left: 100px;
+				margin-bottom: 50px;
+				
+			}
+
+		</style>
+	</head>
+	<body>
+	<div class="container mt-4">
+		<h2 class="text-center"style="font-family:Ink Free; font-weight:bold; font-size:60px;">My Favorite Play-List</h2>
+		<h2 class="pt-5" style="font-family:Ink Free; font-weight:bold; font-size:35px; display: inline-block;">Elige el color de tu preferencia:</h2>
+		<input type="color" id="dame_color" style="display: inline-block; vertical-align: middle; width: 40px; height: 40px; margin-left: 20px;" onchange="poner_color()">
+		<div class="row">
+			<div class="col-md-6 pt-3" style="font-family:Ink Free;font-size:20px; font-weight: bold;">
+				<h4><strong>Desea audio o video</strong></h4>
+				<select class="form-control" style="font-family:Ink Free;font-size:20px;" id="mi_seleccion_es" onchange="poner_imagen()">
+					<option value="">Seleccione</option>
+					<option value="audio">Audio</option>
+					<option value="video">Video</option>
+				</select>
+
+				<h4 class="mt-4"><strong>Seleccione la pista</strong></h4>
+				<div class="list-group" id="pistas">
+					<button class="list-group-item list-group-item-action" onclick="reproducir_pista('bachata')">Bachata</button>
+					<button class="list-group-item list-group-item-action" onclick="reproducir_pista('vallenato')">Vallenato</button>
+					<button class="list-group-item list-group-item-action" onclick="reproducir_pista('merengue')">Merengue</button>
+					<button class="list-group-item list-group-item-action" onclick="reproducir_pista('hard_rock')">Hard Rock</button>
+					<button class="list-group-item list-group-item-action" onclick="reproducir_pista('Salsa')">Salsa</button>
+					<button class="list-group-item list-group-item-action" onclick="reproducir_pista('Variado')">Variado</button>               
+				</div>
+			</div>
+
+			<div class="col-md-6" id="reproduciendo">
+				<div class="card text-center">
+					<div class="card-body">
+						<h5 class="card-title">Reproduciendo</h5>
+						<p class="card-text">Selecciona una pista para empezar.</p>
+						<img src="img/disco.jpg" class="card-img-top" id="default_image" alt="Disco">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal para Video -->
+	<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ModalVideo">Reproducción de Video</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modal-body">
+					<!-- Video se cargará aquí dinámicamente -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    
+		
+	function reproducir_pista(pista) {
+        let multimedia = document.getElementById('mi_seleccion_es').value;
+
+        if (multimedia === "audio") {
+            switch (pista) {
+				case "bachata":
+                	document.getElementById("reproduciendo").innerHTML = 
+						'<audio controls autoplay><source src="audio/bachata.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Labachata.mp3" type= "audio/mpeg"></audio><audio controls play><source src="audio/Moncler.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Centavito.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Moncler.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Moncler.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Moncler.mp3" type="audio/mpeg"></audio><div class="track-info"><div class="marquee"><strong></div></div></div>';
+					break;
+                case "vallenato":
+                    document.getElementById("reproduciendo").innerHTML = '<img src="img/vallenato.jpg" class="card-img-top"><audio src="audio/vallenato.mp3" controls autoplay></audio><div class="track-info"><div class="marquee"><strong>Los Diablitos-Los caminos de la vida</strong></div></div></div>';
+                    break;
+                case "merengue":
+                    document.getElementById("reproduciendo").innerHTML = '<img src="img/merengue.jpg" class="card-img-top"><audio src="audio/merengue.mp3" controls autoplay></audio><div class="track-info"><div class="marquee"><strong>Eddie Herrera-Ajena</strong></div></div></div>';
+                    break;
+                case "hard_rock":
+                    document.getElementById("reproduciendo").innerHTML = '<img src="img/hard_rock.jpg" class="card-img-top"><audio src="audio/hard_rock.mp3" controls autoplay></audio><div class="track-info"><div class="marquee"><strong>AC-DC Black in Black</strong></div></div></div>';
+                    break;
+				case "Salsa":
+					document.getElementById("reproduciendo").innerHTML = '<img src="img/salsa.jpg" class="card-img-top"><audio controls autoplay><source src="audio/cuentoRegresivo.mp3" type= "audio/mpeg"></audio><div class="track-info"><div class="marquee"><strong>Gilberto SantaRosa-Cuenta Regresiva</strong></div></div></div>';
+				break;
+				case "Variado":
+					document.getElementById("reproduciendo").innerHTML = '<audio controls autoplay><source src="audio/Tanto_la_queria.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Calma.mp3" type= "audio/mpeg"></audio><audio controls play><source src="audio/Tequierotanto.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/La_plata.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Bailar_contigo.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/Rock_and_Roll.mp3" type="audio/mpeg"></audio><audio controls play><source src="audio/rock.mp3" type="audio/mpeg"></audio><div class="track-info"><div class="marquee"><strong></div></div></div>';
+				break;
+            }
+        } else if (multimedia === "video") {
+            switch (pista) {
+                case "bachata":
+					openModal('video/bachata.mp4');
+                	break;
+                case "vallenato":
+                    openModal('video/vallenato.mp4');
+                    break;
+                case "merengue":
+                    openModal('video/merengue.mp4');
+                    break;
+                case "hard_rock":
+                    openModal('video/hard_rock.mp4');
+                    break;
+				case "Salsa":
+                    openModal('video/hard_rock.mp4');
+                    break;
+				case "Variado":
+                    openModal('video/hard_rock.mp4');
+                    break;	
+            }
+        } else {
+            alert("Por favor seleccione si desea audio o video.");
+        }
+    }
+
+    function openModal(videoSrc) {
+        document.getElementById("modal-body").innerHTML = '<video src="' + videoSrc + '" controls autoplay style="width: 100%;"></video>';
+        $('#videoModal').modal('show');
+    }
+
+	function poner_imagen(){
+		document.getElementById("reproduciendo").innerHTML='<img src="img/disco.jpg">';
+		document.querySelector('input.musica:checked').checked=false;
+	}
+
+    function poner_color(){
+		let establecer_color=document.getElementById("dame_color").value;
+		document.body.style.backgroundColor=establecer_color;
+	}
+</script>
+
+</body>
+</html>
